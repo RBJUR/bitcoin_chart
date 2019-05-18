@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mainCtnDashboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/cardViewDashboard"
+            android:layout_marginStart="10dp"
+            android:visibility="invisible"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/txtTitleDashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="InfoMarket Price (USD)"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <TextView
+                    android:id="@+id/txtDescDashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Average USD market price across major bitcoin exchanges."
+                    android:textStyle="italic"
+                    android:maxLines="2"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+
+
+            <TextView
+                    android:id="@+id/txtUnitDashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Unit: USD"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+
+            <TextView
+                    android:id="@+id/txtPeriodDashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Period: day"
+                    android:layout_marginStart="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+
+            <TextView
+                    android:id="@+id/txtCurrentValueDashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="U$ 9,000.00"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+
+            <br.com.roquebuarque.bitcoinchart.custom.LineChart
+                    android:id="@+id/lineChart"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="?android:attr/progressBarStyleLarge"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
