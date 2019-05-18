@@ -4,16 +4,19 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    def androidVersions = rootProject.ext.android
+    compileSdkVersion androidVersions.compileSdkVersion
     defaultConfig {
-        applicationId "br.com.roquebuarque.bitcoinchart"
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion androidVersions.minSdkVersion
+        targetSdkVersion androidVersions.targetSdkVersion
+        versionCode androidVersions.versionCode
+        versionName androidVersions.versionName
+        applicationId androidVersions.applicationId
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "BASE_URL", '"https://api.blockchain.info/"'
+
+
     }
     buildTypes {
         release {
@@ -21,6 +24,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -33,38 +37,32 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.google.android.material:material:1.0.0'
 
-
     //RETROFIT
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation commonDependencies.retrofit
+    implementation commonDependencies.retrofitAdapter
+    implementation commonDependencies.rxJava
 
-
-    //OKHTTP
-    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
-
-    //RXJava
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    //NETWORKING
+    implementation commonDependencies.gson
+    implementation commonDependencies.okhttp
+    implementation commonDependencies.log
 
     //DAGGER
-    implementation 'com.google.dagger:dagger:2.17'
-    kapt 'com.google.dagger:dagger-compiler:2.17'
+    implementation commonDependencies.dagger
+    kapt  commonDependencies.daggerCompile
 
-    //Lottie
-    implementation 'com.airbnb.android:lottie:2.8.0'
+    //NETWORKING
+    implementation commonDependencies.gson
+    implementation commonDependencies.okhttp
+    implementation commonDependencies.log
+
 
     //Test
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-
-    testImplementation 'org.mockito:mockito-core:2.23.0'
-    testImplementation 'android.arch.core:core-testing:1.1.1'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
-    testImplementation 'org.mockito:mockito-inline:2.13.0'
+    testImplementation commonTestDependencies.jUnit
+    testImplementation commonTestDependencies.runner
+    testImplementation commonTestDependencies.espresso
+    testImplementation commonTestDependencies.mockito
+    testImplementation commonTestDependencies.archCore
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC3'
 
 }

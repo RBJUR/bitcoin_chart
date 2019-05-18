@@ -43,9 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Average USD market price across major bitcoin exchanges."
-                    android:textStyle="italic"
                     android:maxLines="2"
-                    android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="8dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
@@ -72,14 +70,16 @@
                     android:id="@+id/txtCurrentValueDashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     tools:text="U$ 9,000.00"
+                    android:layout_marginTop="15dp"
                     android:layout_marginStart="8dp"
                     android:textColor="@color/colorPrimary"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
 
             <br.com.roquebuarque.bitcoinchart.custom.LineChart
                     android:id="@+id/lineChart"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="20dp"
                     android:layout_width="match_parent"

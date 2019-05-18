@@ -3,13 +3,14 @@ package br.com.roquebuarque.bitcoinchart.custom
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import br.com.roquebuarque.bitcoinchart.data.DatePoint
 import br.com.roquebuarque.bitcoinchart.util.MaskUtil
 import java.util.Collections
-
 
 class LineChart(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
@@ -24,6 +25,7 @@ class LineChart(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private var scaledTextSize = spSize * resources.displayMetrics.scaledDensity
     private var scaleMarginLeft = 60 * resources.displayMetrics.scaledDensity
     private var label = ""
+    private var recLabel = RectF()
 
     fun updateValues(listValues: List<DatePoint>) {
         val listY = arrayListOf<Float>()
@@ -35,11 +37,11 @@ class LineChart(context: Context, attrs: AttributeSet) : View(context, attrs) {
         values = listY
     }
 
-    fun labelText(text:String){
+    fun labelText(text: String) {
         label = text
     }
 
-    fun execute(){
+    fun execute() {
         invalidate()
     }
 
@@ -54,7 +56,7 @@ class LineChart(context: Context, attrs: AttributeSet) : View(context, attrs) {
         viewWidth = View.MeasureSpec.getSize(widthMeasureSpec) / 10
         viewHeight = View.MeasureSpec.getSize(heightMeasureSpec) / 10
         parentWidth = viewWidth * 9
-        parentHeight = viewHeight * 5
+        parentHeight = viewHeight * 9
         this.setMeasuredDimension(parentWidth, parentHeight)
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
@@ -84,33 +86,43 @@ class LineChart(context: Context, attrs: AttributeSet) : View(context, attrs) {
             //Add margin
             parentHeight -= MARGIN_HEIGHT
 
-            currentInfoValue = (maxValue - valueInfo).toInt()
+            currentInfoValue = maxValue.toInt()
             //draw multiple lines
-            for (i in 0 until LINE_NUMBERS +1) {
+            for (i in 0 until LINE_NUMBERS + 1) {
+                linePaint.color = Color.BLACK
                 c.drawText(
                     "" + MaskUtil.formatMoney(currentInfoValue.toDouble(), false),
                     START_MARGIN_TEXT_X.toFloat(), (height * i + 2).toFloat() + START_MARGIN_TEXT_Y, linePaint
                 )
 
-
+                linePaint.color = -0x414142
                 c.drawLine(
                     scaleMarginLeft,
-                    (height * i).toFloat()+ START_MARGIN_TEXT_Y,
+                    (height * i).toFloat() + START_MARGIN_TEXT_Y,
                     parentWidth.toFloat(),
-                    (height * i).toFloat()+ START_MARGIN_TEXT_Y,
+                    (height * i).toFloat() + START_MARGIN_TEXT_Y,
                     linePaint
                 )
                 currentInfoValue -= valueInfo
             }
 
-            c.drawText(
-                label,
-                scaleMarginLeft, (parentHeight  + START_MARGIN_TEXT_Y * 3).toFloat(), linePaint
-            )
-
             chartPaint.flags = Paint.ANTI_ALIAS_FLAG
             chartPaint.color = -0xe5632f
             chartPaint.strokeWidth = 10f
+
+            //Drawing label
+            recLabel.apply {
+                left = scaleMarginLeft
+                top = (parentHeight + START_MARGIN_TEXT_Y * 3).toFloat() - 25f
+                right = scaleMarginLeft + 20
+                bottom = (parentHeight + START_MARGIN_TEXT_Y * 3).toFloat() - 5
+            }
+
+            c.drawRect(recLabel, chartPaint)
+            c.drawText(
+                label,
+                recLabel.width() + scaleMarginLeft + 10, (parentHeight + START_MARGIN_TEXT_Y * 3).toFloat(), linePaint
+            )
 
             //Calculate size of each width line
             var part = ((parentWidth - scaleMarginLeft) / listSize)
@@ -166,7 +178,7 @@ class LineChart(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
 
     companion object {
-        private const val LINE_NUMBERS = 4
+        private const val LINE_NUMBERS = 8
         private const val START_MARGIN_TEXT_X = 40
         private const val START_MARGIN_TEXT_Y = 40
         private const val MARGIN_HEIGHT = 50
