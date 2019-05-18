@@ -3,5 +3,4 @@
     <string name="chart_label">Data from last 4 weeks</string>
     <string name="unit">Unit: %1$s</string>
     <string name="period">Period: %1$s</string>
-    <string name="value">U%: %1$s</string>
 </resources>

@@ -5,10 +5,9 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import dagger.Module
 import dagger.Provides
-import org.jetbrains.annotations.NotNull
 
 @Module
-class ActivityModule(var activity: AppCompatActivity) {
+class ActivityModule(private var activity: AppCompatActivity) {
 
 
     @Provides

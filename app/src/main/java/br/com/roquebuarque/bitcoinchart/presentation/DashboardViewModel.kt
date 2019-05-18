@@ -2,7 +2,6 @@ package br.com.roquebuarque.bitcoinchart.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.roquebuarque.bitcoinchart.data.ChartStatistic
 import br.com.roquebuarque.bitcoinchart.domain.RetrieveStatistic
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
