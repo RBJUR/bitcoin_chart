@@ -37,7 +37,6 @@ class DashboardActivity : BaseActivityInjecting<DashboardComponent>() {
         when (state) {
             is DashboardState.DataState -> renderDataState(state.data)
             is DashboardState.LoadingState -> renderLoadingState()
-            is DashboardState.EndState -> renderEndState()
             is DashboardState.ErrorState -> renderErrorState(state.error)
         }
     }
@@ -69,10 +68,6 @@ class DashboardActivity : BaseActivityInjecting<DashboardComponent>() {
         val snackbar = Snackbar
             .make(mainCtnDashboard, "Error!", Snackbar.LENGTH_LONG)
         snackbar.show()
-    }
-
-    private fun renderEndState() {
-        loading.visibility = View.GONE
     }
 
     private fun renderLoadingState() {

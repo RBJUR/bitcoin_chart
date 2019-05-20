@@ -8,8 +8,6 @@ sealed class DashboardState{
 
     object LoadingState: DashboardState()
 
-    object EndState: DashboardState()
-
     data class DataState(val data: BitcoinResponse): DashboardState()
 
     data class ErrorState(val error:Throwable): DashboardState()

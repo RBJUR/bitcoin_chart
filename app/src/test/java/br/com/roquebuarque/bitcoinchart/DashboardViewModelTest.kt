@@ -95,20 +95,6 @@ class DashboardViewModelTest {
 
     }
 
-    @Test
-    fun endStateTesting() {
-        // given
-        Mockito.`when`(retrieveStatistic.getChartInfo()).thenReturn(
-            Observable.just(DashboardState.EndState))
-
-        // when
-        viewModel.bindChartInfo()
-
-        // then
-        Mockito.verify(state).onChanged(viewModel.state.value)
-        Assert.assertEquals(viewModel.state.value, DashboardState.EndState)
-
-    }
 
     private fun mockResponse(): BitcoinResponse {
       return BitcoinResponse(

@@ -17,6 +17,4 @@ class RetrieveStatistic @Inject constructor(private val service: Service) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-
-
 }
