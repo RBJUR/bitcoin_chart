@@ -18,7 +18,9 @@ class DashboardViewModel @Inject constructor(private val retrieveStatistic: Retr
 
     fun bindChartInfo(): Disposable {
         return retrieveStatistic.getChartInfo()
+            .startWith(DashboardState.LoadingState)
             .subscribe(::updateChart)
+
 
     }
 

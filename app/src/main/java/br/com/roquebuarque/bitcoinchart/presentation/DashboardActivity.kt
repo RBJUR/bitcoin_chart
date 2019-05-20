@@ -52,10 +52,11 @@ class DashboardActivity : BaseActivityInjecting<DashboardComponent>() {
         txtUnitDashboard.text = getString(R.string.unit, chartInfo.unit)
         txtPeriodDashboard.text = getString(R.string.period, chartInfo.period)
         val maskValue = MaskUtil.formatMoney(
-            chartInfo.pointDate[chartInfo.pointDate.size -1].value.toDouble(),
+            chartInfo.pointDate[chartInfo.pointDate.size - 1].value.toDouble(),
             true,
-            2)
-        txtCurrentValueDashboard.text =  maskValue
+            2
+        )
+        txtCurrentValueDashboard.text = maskValue
 
         lineChart.apply {
             updateValues(chartInfo.pointDate)
