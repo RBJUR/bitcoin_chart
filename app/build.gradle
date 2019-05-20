@@ -42,6 +42,7 @@ dependencies {
     implementation commonDependencies.retrofitAdapter
     implementation commonDependencies.rxJava
     implementation commonDependencies.rxAndroid
+    implementation commonDependencies.rxKotlin
 
     //NETWORKING
     implementation commonDependencies.gson
