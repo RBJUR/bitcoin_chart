@@ -1,6 +1,7 @@
 package br.com.roquebuarque.bitcoinchart.application.di
 
 
+import android.content.Context
 import br.com.roquebuarque.bitcoinchart.application.BitcoinChartApplication
 import br.com.roquebuarque.bitcoinchart.data.di.ServiceModule
 import br.com.roquebuarque.bitcoinchart.presentation.di.ActivityModule
@@ -18,12 +19,8 @@ interface ApplicationComponent {
 
     fun createDashboardActivity(module: ActivityModule): DashboardComponent
 
-    @Component.Builder
-    interface Builder {
-
-        @BindsInstance
-        fun application(app: BitcoinChartApplication): Builder
-
-        fun build(): ApplicationComponent
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance applicationContext: Context): ApplicationComponent
     }
 }

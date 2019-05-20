@@ -4,6 +4,8 @@ import br.com.roquebuarque.bitcoinchart.data.BitcoinResponse
 
 sealed class DashboardState{
 
+    object IDLE: DashboardState()
+
     object LoadingState: DashboardState()
 
     object EndState: DashboardState()

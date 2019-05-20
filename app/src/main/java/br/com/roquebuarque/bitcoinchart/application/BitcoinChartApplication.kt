@@ -16,7 +16,8 @@ class BitcoinChartApplication: Application() {
 
     fun getComponent(): ApplicationComponent {
         if (component == null) {
-            component = DaggerApplicationComponent.builder().application(this).build()
+           component = DaggerApplicationComponent.factory()
+                .create(applicationContext)
         }
         return component as ApplicationComponent
     }

@@ -12,6 +12,7 @@ ext {
     final retrofitVersion = '2.3.0'
     final mockitoVersion = '2.13.0'
     final okHttpVersion = '3.9.1'
+    final daggerVersion = '2.22.1'
 
 
     commonDependencies = [
@@ -29,16 +30,18 @@ ext {
             rxJava         : 'io.reactivex.rxjava2:rxandroid:2.1.1',
 
             //DAGGER
-            dagger         : 'com.google.dagger:dagger:2.17',
-            daggerCompile  : 'com.google.dagger:dagger-compiler:2.17'
+            dagger         : "com.google.dagger:dagger:$daggerVersion",
+            daggerCompile  : "com.google.dagger:dagger-compiler:$daggerVersion"
     ]
 
     commonTestDependencies = [
-            jUnit   : 'junit:junit:4.12',
-            runner  : 'androidx.test:runner:1.1.2-alpha02',
-            espresso: 'androidx.test.espresso:espresso-core:3.2.0-alpha02',
-            mockito : "org.mockito:mockito-core:$mockitoVersion",
-            archCore: "android.arch.core:core-testing:$archComponentsVersion",
-            testRule: 'com.android.support.test:rules:1.0.2'
+            jUnit         : 'junit:junit:4.12',
+            runner        : 'androidx.test:runner:1.1.2-alpha02',
+            espresso      : 'androidx.test.espresso:espresso-core:3.2.0-alpha02',
+            mockito       : "org.mockito:mockito-core:$mockitoVersion",
+            archCore      : "android.arch.core:core-testing:$archComponentsVersion",
+            testRule      : 'com.android.support.test:rules:1.0.2',
+            mockitoInline : 'org.mockito:mockito-inline:2.13.0',
+            mockitoAndroid: 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC3'
     ]
 }

@@ -40,7 +40,7 @@ class DashboardViewModelTest {
 
         //TO AVOID NullpointerException in Subscribe
         Mockito.`when`(retrieveStatistic.getChartInfo()).thenReturn(
-            Observable.just(DashboardState.LoadingState))
+            Observable.just(DashboardState.IDLE))
 
         //INIT VIEW MODEL
         viewModel = DashboardViewModel(retrieveStatistic)
