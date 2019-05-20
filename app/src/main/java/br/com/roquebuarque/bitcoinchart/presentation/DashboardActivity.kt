@@ -44,6 +44,8 @@ class DashboardActivity : BaseActivityInjecting<DashboardComponent>() {
 
     private fun renderDataState(data: BitcoinResponse) {
         cardViewDashboard.visibility = View.VISIBLE
+        loading.visibility = View.GONE
+
         val chartInfo = mapper.apply(data)
         txtTitleDashboard.text = chartInfo.name
         txtDescDashboard.text = chartInfo.description
