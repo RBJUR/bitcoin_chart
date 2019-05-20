@@ -23,7 +23,8 @@ class DashboardViewModel @Inject constructor(private val retrieveStatistic: Retr
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::updateChart)
-    }
+
+     }
 
     private fun updateChart(dashState: DashboardState) {
         state.postValue(dashState)

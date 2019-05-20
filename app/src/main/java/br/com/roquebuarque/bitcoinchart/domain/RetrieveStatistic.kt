@@ -15,8 +15,6 @@ class RetrieveStatistic @Inject constructor(private val service: Service) {
             .map { items -> DashboardState.DataState(items) as DashboardState }
             .onErrorReturn { t -> DashboardState.ErrorState(t) }
             .startWith(DashboardState.LoadingState)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
 
 
 }

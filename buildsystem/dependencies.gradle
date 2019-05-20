@@ -28,6 +28,7 @@ ext {
             //RXJava
             retrofitAdapter: "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
             rxJava         : 'io.reactivex.rxjava2:rxandroid:2.1.1',
+            rxAndroid      : 'io.reactivex.rxjava2:rxjava:2.2.8',
 
             //DAGGER
             dagger         : "com.google.dagger:dagger:$daggerVersion",
