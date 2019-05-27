@@ -5,13 +5,10 @@ import androidx.lifecycle.ViewModel
 import br.com.roquebuarque.bitcoinchart.domain.RetrieveStatistic
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.BiFunction
-import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor(private val retrieveStatistic: RetrieveStatistic) : ViewModel() {
 
-    private val publishSubject : PublishSubject<DashboardAction> = PublishSubject.create()
     private val compositeDisposable = CompositeDisposable()
     val state = MutableLiveData<DashboardState>()
 
@@ -20,10 +17,8 @@ class DashboardViewModel @Inject constructor(private val retrieveStatistic: Retr
     }
 
     private fun bindData(): Disposable =
-        publishSubject
-            .map { DashboardAction.LoadStatistic }
-            .compose(retrieveStatistic.getChartInfo())
-            .scan(DashboardState.idle(), reducer)
+        retrieveStatistic.getChartInfo()
+            .map { data -> StatisticMapper().apply(data) }
             .subscribe(::updateChart)
 
     private fun updateChart(dashState: DashboardState) {
@@ -35,24 +30,4 @@ class DashboardViewModel @Inject constructor(private val retrieveStatistic: Retr
         compositeDisposable.clear()
     }
 
-    companion object {
-        private val reducer = BiFunction { previousState: DashboardState, result: StatisticResult ->
-            with(previousState){
-                when (result) {
-                    is StatisticResult.Success -> {
-                        copy(
-                            isLoading = false,
-                            data = result.data
-                        )
-                    }
-                    is StatisticResult.Failure -> {
-                        copy(isLoading = false, error = result.error)
-                    }
-                    is StatisticResult.Loading -> {
-                        copy(isLoading = true)
-                    }
-                }
-            }
-        }
-    }
 }
