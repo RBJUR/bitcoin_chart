@@ -12,7 +12,6 @@ import javax.inject.Inject
 import br.com.roquebuarque.bitcoinchart.data.BitcoinResponse
 import br.com.roquebuarque.bitcoinchart.domain.BitcoinDataMapper
 import br.com.roquebuarque.bitcoinchart.util.MaskUtil
-import com.google.android.material.snackbar.Snackbar
 
 
 class DashboardActivity : BaseActivityInjecting<DashboardComponent>() {
@@ -62,11 +61,17 @@ class DashboardActivity : BaseActivityInjecting<DashboardComponent>() {
     }
 
     private fun renderErrorState(error: Throwable?) {
-        error?.let { Snackbar.make(mainCtnDashboard, error.message.toString(), Snackbar.LENGTH_LONG).show() }
+        error?.let {
+            txtErrorDashboard.apply {
+                visibility = View.VISIBLE
+                text = it.message.toString()
+            }
+        }
     }
 
     private fun renderLoadingState(isLoading: Boolean) {
         cardViewDashboard.visibility = View.GONE
+        txtErrorDashboard.visibility = View.GONE
         loading.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 

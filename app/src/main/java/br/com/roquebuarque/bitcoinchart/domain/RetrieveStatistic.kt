@@ -9,7 +9,6 @@ import javax.inject.Inject
 
 class RetrieveStatistic @Inject constructor(private val service: Service) {
 
-
     fun getChartInfo(): Observable<StatisticResult> =
         service.fetchBitcoinStatistic()
             .map { data -> StatisticResult.Success(data) as StatisticResult }
