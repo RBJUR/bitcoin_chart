@@ -33,69 +33,6 @@ class DashboardViewModelTest {
     private lateinit var viewModel: DashboardViewModel
 
 
-    @Before
-    fun setup(){
-        //TO AVOID ExceptionInInitializerError
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler {Schedulers.trampoline() }
-
-        //TO AVOID NullpointerException in Subscribe
-        Mockito.`when`(retrieveStatistic.getChartInfo()).thenReturn(
-            Observable.just(DashboardState.IDLE))
-
-        //INIT VIEW MODEL
-        viewModel = DashboardViewModel(retrieveStatistic)
-
-        //LIVEDATA MOCK
-        viewModel.state.observeForever(state)
-    }
-
-    @Test
-    fun dataStateTesting() {
-        // given
-        Mockito.`when`(retrieveStatistic.getChartInfo()).thenReturn(
-            Observable.just(DashboardState.DataState(mockResponse())))
-
-        // when
-        viewModel.bindChartInfo()
-
-        // then
-        Mockito.verify(state).onChanged(viewModel.state.value)
-        Assert.assertEquals(viewModel.state.value, DashboardState.DataState(mockResponse()))
-
-    }
-
-    @Test
-    fun errorStateTesting() {
-        // given
-        val exception = UnknownError()
-        Mockito.`when`(retrieveStatistic.getChartInfo()).thenReturn(
-            Observable.just(DashboardState.ErrorState(exception)))
-
-        // when
-        viewModel.bindChartInfo()
-
-        // then
-        Mockito.verify(state).onChanged(viewModel.state.value)
-        Assert.assertEquals(viewModel.state.value, DashboardState.ErrorState(exception))
-
-    }
-
-    @Test
-    fun loadingStateTesting() {
-        // given
-        Mockito.`when`(retrieveStatistic.getChartInfo()).thenReturn(
-            Observable.just(DashboardState.LoadingState))
-
-        // when
-        viewModel.bindChartInfo()
-
-        // then
-        Mockito.verify(state).onChanged(viewModel.state.value)
-        Assert.assertEquals(viewModel.state.value, DashboardState.LoadingState)
-
-    }
-
-
     private fun mockResponse(): BitcoinResponse {
       return BitcoinResponse(
             name= "Market Price (USD)",
