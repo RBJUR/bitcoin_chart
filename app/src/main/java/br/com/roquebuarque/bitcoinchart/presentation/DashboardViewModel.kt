@@ -31,6 +31,10 @@ class DashboardViewModel @Inject constructor(private val retrieveStatistic: Retr
         state.postValue(dashState)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
+    }
 
     companion object {
         private val reducer = BiFunction { previousState: DashboardState, result: StatisticResult ->
