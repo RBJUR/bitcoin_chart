@@ -53,8 +53,8 @@ class LineChart(context: Context, attrs: AttributeSet) : View(context, attrs) {
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        viewWidth = View.MeasureSpec.getSize(widthMeasureSpec) / 10
-        viewHeight = View.MeasureSpec.getSize(heightMeasureSpec) / 10
+        viewWidth = MeasureSpec.getSize(widthMeasureSpec) / 10
+        viewHeight = MeasureSpec.getSize(heightMeasureSpec) / 10
         parentWidth = viewWidth * 9
         parentHeight = viewHeight * 9
         this.setMeasuredDimension(parentWidth, parentHeight)

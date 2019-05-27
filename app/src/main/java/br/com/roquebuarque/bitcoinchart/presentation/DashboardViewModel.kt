@@ -2,13 +2,11 @@ package br.com.roquebuarque.bitcoinchart.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.roquebuarque.bitcoinchart.data.BitcoinResponse
 import br.com.roquebuarque.bitcoinchart.domain.RetrieveStatistic
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.subjects.PublishSubject
-import java.lang.NullPointerException
 import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor(private val retrieveStatistic: RetrieveStatistic) : ViewModel() {
@@ -23,6 +21,7 @@ class DashboardViewModel @Inject constructor(private val retrieveStatistic: Retr
 
     private fun bindData(): Disposable =
         publishSubject
+            .map { DashboardAction.LoadStatistic }
             .compose(retrieveStatistic.getChartInfo())
             .scan(DashboardState.idle(), reducer)
             .subscribe(::updateChart)
