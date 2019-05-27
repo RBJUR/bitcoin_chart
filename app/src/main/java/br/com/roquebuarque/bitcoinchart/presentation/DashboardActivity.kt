@@ -26,52 +26,48 @@ class DashboardActivity : BaseActivityInjecting<DashboardComponent>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
-
         viewModel.state.observe(this, Observer {
             render(it)
         })
-
     }
 
     private fun render(state: DashboardState) {
-        when (state) {
-            is DashboardState.DataState -> renderDataState(state.data)
-            is DashboardState.LoadingState -> renderLoadingState()
-            is DashboardState.ErrorState -> renderErrorState(state.error)
+        renderLoadingState(state.isLoading)
+        renderErrorState(state.error)
+        renderDataState(state.data)
+    }
+
+    private fun renderDataState(data: BitcoinResponse?) {
+        data?.let {
+            cardViewDashboard.visibility = View.VISIBLE
+
+            val chartInfo = mapper.apply(data)
+            txtTitleDashboard.text = chartInfo.name
+            txtDescDashboard.text = chartInfo.description
+            txtUnitDashboard.text = getString(R.string.unit, chartInfo.unit)
+            txtPeriodDashboard.text = getString(R.string.period, chartInfo.period)
+            val maskValue = MaskUtil.formatMoney(
+                chartInfo.pointDate[chartInfo.pointDate.size - 1].value.toDouble(),
+                true,
+                2
+            )
+            txtCurrentValueDashboard.text = maskValue
+
+            lineChart.apply {
+                updateValues(chartInfo.pointDate)
+                labelText(getString(R.string.chart_label))
+                execute()
+            }
         }
     }
 
-    private fun renderDataState(data: BitcoinResponse) {
-        cardViewDashboard.visibility = View.VISIBLE
-        loading.visibility = View.GONE
-
-        val chartInfo = mapper.apply(data)
-        txtTitleDashboard.text = chartInfo.name
-        txtDescDashboard.text = chartInfo.description
-        txtUnitDashboard.text = getString(R.string.unit, chartInfo.unit)
-        txtPeriodDashboard.text = getString(R.string.period, chartInfo.period)
-        val maskValue = MaskUtil.formatMoney(
-            chartInfo.pointDate[chartInfo.pointDate.size - 1].value.toDouble(),
-            true,
-            2
-        )
-        txtCurrentValueDashboard.text = maskValue
-
-        lineChart.apply {
-            updateValues(chartInfo.pointDate)
-            labelText(getString(R.string.chart_label))
-            execute()
-        }
+    private fun renderErrorState(error: Throwable?) {
+        error?.let { Snackbar.make(mainCtnDashboard, error.message.toString(), Snackbar.LENGTH_LONG).show() }
     }
 
-    private fun renderErrorState(error: Throwable) {
-        val snackbar = Snackbar
-            .make(mainCtnDashboard, "Error!", Snackbar.LENGTH_LONG)
-        snackbar.show()
-    }
-
-    private fun renderLoadingState() {
-        loading.visibility = View.VISIBLE
+    private fun renderLoadingState(isLoading: Boolean) {
+        cardViewDashboard.visibility = View.GONE
+        loading.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     override fun onInject(component: DashboardComponent) {
