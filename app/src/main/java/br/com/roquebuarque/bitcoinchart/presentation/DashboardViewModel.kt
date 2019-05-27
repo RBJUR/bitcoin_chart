@@ -38,18 +38,20 @@ class DashboardViewModel @Inject constructor(private val retrieveStatistic: Retr
 
     companion object {
         private val reducer = BiFunction { previousState: DashboardState, result: StatisticResult ->
-            when (result) {
-                is StatisticResult.Success -> {
-                    previousState.copy(
-                        isLoading = false,
-                        data = result.data
-                    )
-                }
-                is StatisticResult.Failure -> {
-                    previousState.copy(isLoading = false, error = result.error)
-                }
-                is StatisticResult.Loading -> {
-                    previousState.copy(isLoading = true)
+            with(previousState){
+                when (result) {
+                    is StatisticResult.Success -> {
+                        copy(
+                            isLoading = false,
+                            data = result.data
+                        )
+                    }
+                    is StatisticResult.Failure -> {
+                        copy(isLoading = false, error = result.error)
+                    }
+                    is StatisticResult.Loading -> {
+                        copy(isLoading = true)
+                    }
                 }
             }
         }
