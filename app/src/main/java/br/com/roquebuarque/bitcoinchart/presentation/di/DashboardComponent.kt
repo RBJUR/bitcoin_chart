@@ -5,7 +5,6 @@ import dagger.Subcomponent
 
 @ActivityScope
 @Subcomponent(modules = [ActivityModule::class])
-
 interface DashboardComponent {
 
     fun inject(dashboardActivity: DashboardActivity)

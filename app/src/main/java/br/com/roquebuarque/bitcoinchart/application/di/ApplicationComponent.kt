@@ -15,7 +15,6 @@ import javax.inject.Singleton
 @Component(modules = [ApplicationModule::class, ServiceModule::class, ViewModelModule::class])
 interface ApplicationComponent {
 
-    fun inject(app: BitcoinChartApplication)
 
     fun createDashboardActivity(module: ActivityModule): DashboardComponent
 
